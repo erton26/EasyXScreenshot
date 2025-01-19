@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "EasyXScreenshot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Take screenshot of currently open X post.",
   "homepage_url": "https://github.com/erton26/EasyXScreenshot",
   "icons": {
@@ -21,7 +21,7 @@
 
   "content_scripts": [
     {
-      "matches": ["*://*.twitter.com/*"],
+      "matches": ["*://*.twitter.com/*", "*://*.x.com/*"],
       "js": ["index.js"]
     }
   ],
