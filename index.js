@@ -2,20 +2,16 @@ const main = (request, sender, sendResponse) => {
     const root = document.getElementById("react-root");
     const articles = root.getElementsByTagName("article");
 
-    //Check if opened post is a reply, if it is tabindex="0", if not tabindex="-1"
-    const tabindex = articles[0].getAttribute("tabindex");
-
-    const rect1 = articles[0].getBoundingClientRect();
-    const rect2 = articles[1].getBoundingClientRect();
-
-    //If opened post is not a reply take a screenshot of opened post
-    const rect = rect1
-
-    //If post is a reply take a screenshot of the post and the post that is replied to
-    if (tabindex === "0") {
-        rect.height = rect1.height + rect2.height;
+    //Check reply chain
+    reply_num = 0;
+    while (articles[reply_num].tabIndex == 0) {
+        reply_num += 1;
     }
-    sendResponse({ x: rect.x, y:rect.y, width:rect.width, height:rect.height });
+
+    const rect_start = articles[0].getBoundingClientRect();
+    const rect_end = articles[reply_num].getBoundingClientRect();
+
+    sendResponse({ x: rect_start.x, y:rect_start.y, width:rect_start.width, height:rect_end.y + rect_end.height - rect_start.y });
     return true;
 };
 
